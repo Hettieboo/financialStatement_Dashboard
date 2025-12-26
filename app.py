@@ -770,4 +770,4 @@ with col2:
     fig_bar_comparison.add_trace(go.Bar(
         y=partners_top['Partner'],
         x=partners_top['Completed'],
-        orientation='
+        orientation='h',
