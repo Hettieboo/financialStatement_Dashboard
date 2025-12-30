@@ -21,10 +21,14 @@ st.markdown("""
     [data-testid="stMetricValue"] {
         font-size: 28px;
         font-weight: 600;
+        color: white !important;
     }
     [data-testid="stMetricLabel"] {
         font-size: 14px;
-        color: #a0a0b0;
+        color: #e0e0e0 !important;
+    }
+    [data-testid="stMetricDelta"] {
+        color: white !important;
     }
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
@@ -59,6 +63,18 @@ st.markdown("""
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     }
     h1, h2, h3 {
+        color: white !important;
+    }
+    p, span, label, div {
+        color: white !important;
+    }
+    .stSelectbox label, .stSlider label {
+        color: white !important;
+    }
+    [data-testid="stDataFrame"] {
+        color: white !important;
+    }
+    .stDataFrame {
         color: white !important;
     }
     .stSelectbox, .stSlider {
