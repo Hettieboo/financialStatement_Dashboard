@@ -22,8 +22,6 @@ st.markdown("""
         font-size: 24px;
         font-weight: 600;
         color: white !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
     }
     [data-testid="stMetricLabel"] {
         font-size: 14px;
@@ -70,84 +68,103 @@ st.markdown("""
     p, span, label, div {
         color: white !important;
     }
-    .stSelectbox label, .stSlider label {
+    
+    /* Selectbox - Main container */
+    .stSelectbox {
         color: white !important;
     }
-    [data-testid="stDataFrame"] {
+    .stSelectbox label {
         color: white !important;
     }
-    .stDataFrame {
-        color: white !important;
-    }
-    .stSelectbox, .stSlider {
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 8px;
-    }
+    
+    /* Selectbox - Input field */
     .stSelectbox > div > div {
-        background-color: rgba(255,255,255,0.1);
-        color: white !important;
-    }
-    .stSelectbox [data-baseweb="select"] {
-        background-color: rgba(255,255,255,0.1);
-    }
-    /* Selectbox styling - force dark theme */
-    .stSelectbox > div > div {
-        background-color: rgba(45, 45, 68, 0.9) !important;
+        background-color: rgba(30, 30, 46, 0.95) !important;
         color: white !important;
         border: 1px solid rgba(255,255,255,0.2) !important;
     }
-    .stSelectbox [data-baseweb="select"] {
-        background-color: rgba(45, 45, 68, 0.9) !important;
+    
+    /* Selectbox - All internal divs */
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: rgba(30, 30, 46, 0.95) !important;
     }
-    .stSelectbox [data-baseweb="select"] > div {
+    
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: rgba(30, 30, 46, 0.95) !important;
         color: white !important;
-        background-color: rgba(45, 45, 68, 0.9) !important;
-        border: 1px solid rgba(255,255,255,0.2) !important;
+        border-color: rgba(255,255,255,0.2) !important;
     }
-    .stSelectbox [data-baseweb="select"] div[role="button"] {
-        background-color: rgba(45, 45, 68, 0.9) !important;
+    
+    /* Selectbox - Button and text */
+    .stSelectbox [role="button"] {
+        background-color: rgba(30, 30, 46, 0.95) !important;
         color: white !important;
     }
-    .stSelectbox [data-baseweb="select"] div {
-        background-color: rgba(45, 45, 68, 0.9) !important;
+    
+    .stSelectbox [data-baseweb="select"] span {
         color: white !important;
     }
-    /* Dropdown menu */
+    
+    .stSelectbox [data-baseweb="select"] svg {
+        fill: white !important;
+    }
+    
+    /* Dropdown menu container */
     div[data-baseweb="popover"] {
         background-color: rgba(30, 30, 46, 0.98) !important;
     }
+    
     div[data-baseweb="popover"] > div {
         background-color: rgba(30, 30, 46, 0.98) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
     }
+    
+    /* Dropdown list */
     ul[role="listbox"] {
         background-color: rgba(30, 30, 46, 0.98) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
     }
+    
+    /* Dropdown options */
     li[role="option"] {
         color: white !important;
         background-color: rgba(30, 30, 46, 0.98) !important;
     }
+    
     li[role="option"]:hover {
         background-color: rgba(102, 126, 234, 0.6) !important;
         color: white !important;
     }
-    /* Input and select elements */
-    input, select, option {
-        color: white !important;
-        background-color: rgba(45, 45, 68, 0.9) !important;
-    }
-    [data-baseweb="select"] span {
+    
+    /* Selected option */
+    li[role="option"][aria-selected="true"] {
+        background-color: rgba(102, 126, 234, 0.4) !important;
         color: white !important;
     }
-    [role="listbox"] {
-        background-color: rgba(30, 30, 46, 0.98) !important;
+    
+    /* All input elements */
+    input, select, textarea {
+        background-color: rgba(30, 30, 46, 0.95) !important;
+        color: white !important;
         border: 1px solid rgba(255,255,255,0.2) !important;
     }
-    [role="option"] {
-        color: white !important;
-        background-color: rgba(30, 30, 46, 0.98) !important;
+    
+    /* Dataframe */
+    [data-testid="stDataFrame"] {
+        background-color: rgba(255,255,255,0.05) !important;
     }
-    [role="option"]:hover {
-        background-color: rgba(102, 126, 234, 0.6) !important;
+    
+    .stDataFrame {
+        color: white !important;
+    }
+    
+    /* Force all text in selectbox to be white */
+    .stSelectbox * {
+        color: white !important;
+    }
+    
+    /* Slider */
+    .stSlider label {
         color: white !important;
     }
     </style>
@@ -249,9 +266,9 @@ def main():
     with col1:
         st.title("💰 Financial Dashboard")
     with col2:
-        period = st.selectbox("Period", ["Last 30 Days", "Last 90 Days", "Last Year", "All Time"], index=2)
+        period = st.selectbox("Period", ["Last 30 Days", "Last 90 Days", "Last Year", "All Time"], index=2, key="period_select")
     with col3:
-        view = st.selectbox("View", ["Overview", "Detailed"])
+        view = st.selectbox("View", ["Overview", "Detailed"], key="view_select")
     
     # Calculate date filter
     if period == "Last 30 Days":
