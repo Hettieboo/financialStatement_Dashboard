@@ -19,9 +19,11 @@ st.markdown("""
         padding: 1rem 2rem;
     }
     [data-testid="stMetricValue"] {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 600;
         color: white !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     [data-testid="stMetricLabel"] {
         font-size: 14px;
@@ -89,15 +91,25 @@ st.markdown("""
         background-color: rgba(255,255,255,0.1);
     }
     .stSelectbox [data-baseweb="select"] > div {
-        color: white !important;
-        background-color: rgba(255,255,255,0.1);
+        color: #1e1e2e !important;
+        background-color: rgba(255,255,255,0.95) !important;
     }
     input, select, option {
-        color: white !important;
-        background-color: rgba(30, 30, 46, 0.9) !important;
+        color: #1e1e2e !important;
+        background-color: rgba(255, 255, 255, 0.95) !important;
     }
     [data-baseweb="select"] span {
         color: white !important;
+    }
+    [role="listbox"] {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    [role="option"] {
+        color: #1e1e2e !important;
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    [role="option"]:hover {
+        background-color: rgba(102, 126, 234, 0.2) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -249,7 +261,7 @@ def main():
     with col1:
         # Balance trend
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.subheader("Balance Trend")
+        st.markdown("<h3 style='color: white; margin-bottom: 20px;'>Balance Trend</h3>", unsafe_allow_html=True)
         
         fig = go.Figure()
         fig.add_trace(go.Scatter(
@@ -278,7 +290,7 @@ def main():
         
         # Cash flow
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.subheader("Monthly Cash Flow")
+        st.markdown("<h3 style='color: white; margin-bottom: 20px;'>Monthly Cash Flow</h3>", unsafe_allow_html=True)
         
         monthly_data = filtered_df.copy()
         monthly_data['Month'] = monthly_data['Date'].dt.to_period('M')
@@ -323,7 +335,7 @@ def main():
     with col2:
         # Expense breakdown
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.subheader("Expense Breakdown")
+        st.markdown("<h3 style='color: white; margin-bottom: 20px;'>Expense Breakdown</h3>", unsafe_allow_html=True)
         
         expense_by_category = filtered_df[filtered_df['Amount'] < 0].groupby('Category')['Amount'].sum().abs()
         
@@ -362,7 +374,7 @@ def main():
         
         # Quick stats
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.subheader("Quick Stats")
+        st.markdown("<h3 style='color: white; margin-bottom: 20px;'>Quick Stats</h3>", unsafe_allow_html=True)
         
         payroll_total = filtered_df[filtered_df['Category'] == 'Payroll']['Amount'].sum()
         operating_total = filtered_df[filtered_df['Category'] == 'Operating']['Amount'].sum()
@@ -378,7 +390,7 @@ def main():
     # Bottom section - Recent transactions
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.subheader("Recent Transactions")
+    st.markdown("<h3 style='color: white; margin-bottom: 20px;'>Recent Transactions</h3>", unsafe_allow_html=True)
     
     recent = filtered_df.tail(10).sort_values('Date', ascending=False)
     display_df = recent[['Date', 'Description', 'Category', 'Amount']].copy()
